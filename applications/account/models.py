@@ -25,6 +25,7 @@ class UserManager(BaseUserManager):
         else:
             password = make_random_password()
             # is_active = True
+            extra_fields.setdefault("is_active", True)
         extra_fields.setdefault("is_staff", False)
         extra_fields.setdefault("is_superuser", False)
         return self._create_user(email, password, **extra_fields)
@@ -46,7 +47,7 @@ class MyUser(AbstractUser):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=100)
     activation_code = models.CharField(max_length=50, blank=True)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     username = None
 
     USERNAME_FIELD = 'email'
